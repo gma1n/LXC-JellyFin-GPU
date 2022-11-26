@@ -1,5 +1,5 @@
 # Nvidia GPU Passthrough to LXC Container in Proxmox.
-This is a step-by-step guide that will walk you through getting your GPU passed through from the host to a LXC container. My goal is to try and make your life easier so just about everything will be copy and paste to make your life a little easier (but I'll warn you when you cant).
+This is a step-by-step guide that will walk you through getting your GPU passed through from the host to a LXC container. My goal is to try and make your life easier so just about everything will be copy and paste (but I'll warn you when you can’t).
 
 ### *System overview / Prerequisite*
 - System running Proxmox
@@ -33,7 +33,7 @@ Before we can do anything.. the first thing we need to do is update **Everything
 
 > **Be sure to disable the `pve-enterprise` repo after adding the No-subscription repo.**
 
-Once added, go into the updates menu and click `Refresh`. This will load any/or all system updates to the kernel. When it's done loading click on the `>_Upgrade`. This will open a new window and start the updates. Be paitent as this can take a few minutes.
+Once added, go into the updates menu and click `Refresh`. This will load any/or all system updates to the kernel. When it's done loading click on the `>_Upgrade`. This will open a new window and start the updates. Be patient as this can take a few minutes.
 
 Reboot the node after updates are completed.
 
@@ -59,7 +59,7 @@ apt install pve-headers-5.15.74-1-pve
 ![image](https://i.imgur.com/t5MndtW.png)
 
 Once that's done it's now time to block the Nouveau driver..
- > Side note - The nouveau driver is the generic opensource graphics driver for linux systems. These two drivers can not coexist with each other. I promise we will be getting the official Nvidia drivers soon.
+ > Side note - The nouveau driver is the generic opensource graphics driver for linux systems. These two drivers cannot coexist with each other. I promise we will be getting the official Nvidia drivers soon.
 
 To block this:
 ```
@@ -105,7 +105,7 @@ You can check it was downloaded by typing `ls` - the installer will be listed.
 root@pve:~# ls
 NVIDIA-Linux-x86_64-515.86.01.run
 ```
-Now that we have the driver downloaded we have to make the installer executable. To do this:
+Now that we have the driver downloaded, we have to make the installer executable. To do this:
 ```
 chmod +x <file> -should look like- chmod +x NVIDIA-Linux-x86_64-515.86.01.run
 ```
@@ -145,7 +145,7 @@ nvidia-smi
 Your node can now fully recognize and utilize your GPU!!! Go ahead and reboot the node.
 
 ## WAIT!! I got an error when trying to run the installer! Said something about modprobe, nouveau being blocked, or nouveau was still in use!
-Thats okay, we will fix it with this:
+That’s okay, we will fix it with this:
 ```
 nano /etc/modprobe.d/blacklist-nouveau.conf
 ```
@@ -160,7 +160,7 @@ Regenerate the kernel initramfs:
 ```
 update-initramfs -u
 ```
-Afer thats done, reboot the node. Repeat the driver install.
+After that’s done, reboot the node. Repeat the driver install.
 
 ## Config files 
 After the reboot, make sure the drivers are still loaded by
@@ -208,7 +208,7 @@ After downloading (output log will show "TASK OK" when done), go to the top righ
 ![image](https://i.imgur.com/okjrgTi.png)
 
 This will bring up the `Create: LXC Container`
-- `General` - set your host name. Since I plan on using this container as a JellyFin server, my hostname is `JellyFin`. Set a root password, uncheck 'Unpriviledged Container'.
+- `General` - set your host name. Since I plan on using this container as a JellyFin server, my hostname is `JellyFin`. Set a root password, uncheck 'Unprivileged Container'.
 - `Template` - select the Ubuntu-22.04 CT we just downloaded.
 - `Disks` - Disk size set to 8gb.
 - `CPU` - set to 2 cores.
@@ -222,7 +222,7 @@ This will bring up the `Create: LXC Container`
 Hit finish!
 
 ## Editing the container for passthrough
-When the container is done being created, we need to go back to your main node console. We still have to make some changes to allow the the GPU to be passed through. This is where your input is going to be needed.
+When the container is done being created, we need to go back to your main node console. We still have to make some changes to allow the GPU to be passed through. This is where your input is going to be needed.
 ## Do **NOT** copy my settings exactly! These numbers are going to be different for your system. I will show what my config looks like but be sure to change these values.
 
 To start:
@@ -238,7 +238,7 @@ nano /etc/pve/lxc/<container id>.conf
 ```
 ![image](https://i.imgur.com/wNz2d5a.png)
 
-Once in the containers config file, we want add these lines:
+Once in the container’s config file, we want add these lines:
 ```
 #cgroup access
 lxc.cgroup2.devices.allow: c 195:0 rw
