@@ -298,9 +298,8 @@ After reboot log back in as `root`. Run the `nvidia-smi` command.
 ![image](https://i.imgur.com/BFVo8nl.png)
 
 Congratulations! You have successfully just passed your GPU to an LXC Container!!
-From here you can do whatever you like. Since I am going to be using this as a media server you can install something like Plex or JellyFin.
-- Plex - [Installing Plex on Ubuntu 22.04](https://linuxhint.com/install_plex_ubuntu-2/)
-- JellyFin - [Installing JellyFin on Ubuntu](https://jellyfin.org/docs/general/administration/installing#ubuntu-repository)
+From here you can do whatever you like that can harness the horsepower of your GPU for any type of workload.
+
 
 # Thank You!
 
